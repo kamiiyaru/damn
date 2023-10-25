@@ -1,4 +1,4 @@
 <?php 
-require('data/class.php');
+require("../data/class.php");
 $data = new data();
  ?>
