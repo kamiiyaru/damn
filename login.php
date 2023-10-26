@@ -1,7 +1,3 @@
-<?php 
-include "inc/important.php"
- ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +7,8 @@ include "inc/important.php"
 </head>
 <body>
     <form method="POST" action="./process/login_process.php">
-        <input type="name" name="username" placeholder="username" required>
+        <input type="name" name="username" placeholder="username" required><br>
+        <input type="name" name="password" placeholder="your pass" required>
         <input type="submit" name="submit">
     </form>
 </body>
