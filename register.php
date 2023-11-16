@@ -1,14 +1,16 @@
-<?php $title = 'login'; ?>
-<?php include './inc/head.php'; ?>
+<?php session_start()?>
+<?php $title="register"?>
+<?php include "./inc/head.php"?>
 
 <style type="text/css">
         img {
             position: absolute;
             left: 42%;
         }
+
         h1 {
 			width: 500px;;
-            position: absolute;
+            position: absolute;aa
             top: -50%;
             right:-90%;
         }
@@ -35,11 +37,21 @@
             top: 23px;
             left: 9px;
         }        
+
+        select {
+        	margin-bottom: 5px;
+        }
     </style>
-<form method="POST" action="process/login_process.php">
-<h1>man enter your login info broda</h1>
-	<input type="name" name="username" placeholder="Username" required><br>
-	<input type="password" name="password" placeholder="Password" required><br>
-	<input type="submit" name="submit" class='submit'><br>
-	<a href="register.php">register</a>
-</form>
+<body>
+    <?php
+    if(isset($_SESSION['pesan_register'])){
+        echo $_SESSION['pesan_register'];
+        session_unset();
+    }
+    ?>
+	<form method="POST" action="./process/register_process.php">
+		<input type="name" name="nama" placeholder='nama' required><br>
+		<input type="password" name="password" placeholder='password' required><br>
+		<input type="submit" name="submit">
+	</form>
+</body>

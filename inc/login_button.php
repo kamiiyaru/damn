@@ -2,7 +2,9 @@
 	a {
 		margin-left: 10px;
 		float: right;
+		font-size: 25px;
 	}
+
 </style>
 
 <?php 

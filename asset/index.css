@@ -1,0 +1,27 @@
+* {
+    font-family: arial;
+}
+table{
+    position: relative;
+    top: 20px;       
+}
+
+table, th, td {
+    border-radius: 5px;
+    font-size: 20px;
+    width: 80%;
+      border: 1px solid black;
+      border-collapse: collapse;
+}
+
+.no {
+    width:5%;
+}
+
+.nama {
+    width: 50%;
+}
+
+.nis {
+    width: 25%;
+}
