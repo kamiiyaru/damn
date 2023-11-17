@@ -69,12 +69,12 @@ class Data {
 		echo "<th>aksi</th>";
 		echo "</tr>";
 		echo "<tr>";
-		while($row = $table->fetch_array){
-			echo $no++;
+		while($row = $table->fetch_array()){
+			echo "<td>".$no++."</td>";
 			echo "<td>".$row['nama']."</td>";
 			echo "<td>".$row['nis']."</td>";
 			echo "<td>".$row['kelas']."</td>";
-			echo "<td>Hapus</td>";
+			echo "<td><a href='./process/delete.php?id=".$row['id']."'>Hapus</a></td>";
 		}
 		echo "</tr>";
 	}
@@ -85,8 +85,8 @@ class Data {
 
 		echo "</tr>";
 		echo "<tr>";
-		while($row = $table->fetch_array){
-			echo $no++;
+		while($row = $table->fetch_array()){
+			echo "<td>".$no++."</td>";
 			echo "<td>".$row['nama']."</td>";
 			echo "<td>".$row['nis']."</td>";
 			echo "<td>".$row['kelas']."</td>";
@@ -94,7 +94,7 @@ class Data {
 		echo "</tr>";
 	}
 
-	function show_data() {
+	public function show_data() {
 
 		if(isset($_SESSION['login'])){
 
@@ -103,16 +103,32 @@ class Data {
 			$admin = mysqli_query($this->conn, "select admin from user where username = '$username'");
 			$array_adm = $admin->fetch_array();
 
-			if($array_adm == 1){
-				echo 'is admin';
+			if($array_adm['admin'] == 1){
+				$this->admin_show_data();
 			}else{
-				echo 'not admin';
+				$this->user_show_data();
 			}
-		}else{
-			echo 'login first';
 		}
 		
 
+	}
+
+	function delete() {
+		$id = $_GET['id'];
+
+		$delete = mysqli_query($this->conn , "delete from student where id = $id");
+		header('Location: ../index.php');
+	}
+
+	public function tambah_data() {
+		$nama = $_POST['nama'];
+		$nis = $_POST['nis'];
+		$kelas = $_POST['kelas'];
+
+		$add = mysqli_query($this->conn, "insert into student (nama, nis, kelas) values ('$nama', $nis, '$kelas')");
+		
+		header("Location: ../index.php");
+	
 	}
 
 }

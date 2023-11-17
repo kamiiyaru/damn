@@ -6,22 +6,25 @@ table{
     top: 20px;       
 }
 
-table, th, td {
+table,  td {
     border-radius: 5px;
     font-size: 20px;
-    width: 80%;
       border: 1px solid black;
-      border-collapse: collapse;
+}
+
+th , td{
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 .no {
-    width:5%;
+    width: 5%;
 }
 
 .nama {
     width: 50%;
 }
 
-.nis {
-    width: 25%;
+td, a {
+    text-align: center;
 }

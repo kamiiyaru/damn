@@ -19,9 +19,24 @@ include './inc/login_button.php'
     }
 ?>
 
-
-    <?php $data->show_data();?>
-
+    <?php
+    if(isset($_SESSION['login'])){
+    ?>
+    <table>
+        <tr>
+            <th class='no' >no</th>
+            <th class='nama'>nama</th>
+            <th class='nis'>nis</th>
+            <th class='kelas'>kelas</th>
+            <?php $data->show_data();?>
+    </table>
+    <?php
+    
+    }else{
+        echo "Login Duls ga sih?";
+    }
+    
+    ?>
 
 </body>
 </html>
