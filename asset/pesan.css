@@ -1,0 +1,13 @@
+.gagal {
+    border: 2px solid red;
+    background-color: red;
+    border-radius: 5%;
+    margin-bottom: 20px;
+}
+
+.berhasil {
+    border: 2px solid lime;
+    background-color: lime;
+    border-radius: 5%;
+    margin-bottom: 20px;
+}

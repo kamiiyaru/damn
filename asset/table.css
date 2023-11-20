@@ -1,0 +1,23 @@
+* {
+    font-family: arial;
+}
+
+table, th ,td {
+    margin-top: 20px;
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 70%;
+}
+
+th {
+    background-color: yellow;
+    font-size: 20px;
+}
+
+.addButton {
+    float: left;
+}

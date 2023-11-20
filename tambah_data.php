@@ -14,9 +14,9 @@ include "./inc/head.php";
 <form method="POST" action="./process/add.php">
     <h1>Tambah Data</h1>
     <input type="name" name="nama" placeholder='nama' require><br>
-    <input type="number" min='1000000000' name="nis" placeholder="nis" require><br>
-    <select name="kelas">
-        <option value="">pilih kelas</option>
+    <input type="number" min='1' name="nis" placeholder="nis" maxlength="11" require><br>
+    <select name="kelas" require>
+        <option value="NULL">pilih kelas</option>
         <option value="X">X</option>
         <option value="XI">XI</option>
         <option value="XII">XII</option>

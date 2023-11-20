@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="./asset/form.css">
 <body>
     <?php
-    if(isset($_SESSION['pesan_register'])){
-        echo $_SESSION['pesan_register'];
+    if(isset($_SESSION['pesan'])){
+        echo $_SESSION['pesan'];
         session_unset();
     }
     ?>

@@ -6,36 +6,40 @@ $title = "Crud";
 include './inc/head.php';
 include './inc/login_button.php'
  ?>
-    <link rel="stylesheet" href="./asset/index.css">
+    <link rel="stylesheet" href="./asset/table.css">
+    <link rel="stylesheet" href="./asset/pesan.css">
 
 <body>
 
 <?php
     $no = 1;
 
-    if(isset($_SESSION['pesan_register'])){
-        echo $_SESSION['pesan_register'];
-        session_unset();
+    if(isset($_SESSION['pesan'])){
+        echo $_SESSION['pesan'];
+        unset($_SESSION['pesan']);
     }
-?>
+    ?>
 
     <?php
     if(isset($_SESSION['login'])){
     ?>
     <table>
         <tr>
-            <th class='no' >no</th>
-            <th class='nama'>nama</th>
-            <th class='nis'>nis</th>
-            <th class='kelas'>kelas</th>
+            <th class='no' >No</th>
+            <th class='nama'>Nama</th>
+            <th class='nis'>NIS</th>
+            <th class='kelas'>Kelas</th>
             <?php $data->show_data();?>
     </table>
+
+    <a href="tambah_data.php" class="addButon"><button>tambah data</button></a>
     <?php
     
     }else{
         echo "Login Duls ga sih?";
     }
     
+
     ?>
 
 </body>

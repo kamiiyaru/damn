@@ -53,10 +53,10 @@ class Data {
 
 		if($check_usn->num_rows == 0){
 			mysqli_query($this->conn, "INSERT INTO USER (username, password, admin) values ('$username','$password', 0)");
-			$_SESSION['pesan_register'] = "Username berhasil terdaftar";
+			$_SESSION['pesan'] = "Username berhasil terdaftar";
 			header("Location: ../index.php");
 		}else{
-			$_SESSION['pesan_register'] = "Username telah Terdaftar";
+			$_SESSION['pesan'] = "Username telah Terdaftar";
 			header("Location: ../register.php");
 		}
 
@@ -68,30 +68,31 @@ class Data {
 		
 		echo "<th>aksi</th>";
 		echo "</tr>";
-		echo "<tr>";
+
 		while($row = $table->fetch_array()){
+			echo "<tr>";
 			echo "<td>".$no++."</td>";
 			echo "<td>".$row['nama']."</td>";
 			echo "<td>".$row['nis']."</td>";
 			echo "<td>".$row['kelas']."</td>";
-			echo "<td><a href='./process/delete.php?id=".$row['id']."'>Hapus</a></td>";
+			echo "<td><a href='./process/delete.php?id=".$row['id']."' >Hapus</a><a href='./process/edit.php?id=".$row['id'].">Edit</a></td>";
+			echo "<tr>";
 		}
-		echo "</tr>";
 	}
 
 	function user_show_data() {
-		$table = mysqli_query($this->conn, "select * from student");
+		$table = mysqli_query($this->conn, "select * from student where kelas is not null");
 		$no = 1;
 
 		echo "</tr>";
-		echo "<tr>";
 		while($row = $table->fetch_array()){
+			echo "<tr>";
 			echo "<td>".$no++."</td>";
 			echo "<td>".$row['nama']."</td>";
 			echo "<td>".$row['nis']."</td>";
 			echo "<td>".$row['kelas']."</td>";
+			echo "</tr>";
 		}
-		echo "</tr>";
 	}
 
 	public function show_data() {
@@ -125,9 +126,26 @@ class Data {
 		$nis = $_POST['nis'];
 		$kelas = $_POST['kelas'];
 
-		$add = mysqli_query($this->conn, "insert into student (nama, nis, kelas) values ('$nama', $nis, '$kelas')");
-		
-		header("Location: ../index.php");
+		//check if data is exist by name and nis
+		$name_check = mysqli_query($this->conn, "select nama from student where nama = '$nama' ");
+
+		$nis_check = mysqli_query($this->conn, "select nis from student where nis = $nis");
+
+		if($name_check->num_rows == 0){
+			if($nis_check->num_rows == 0){
+				$add = mysqli_query($this->conn, "insert into student (nama, nis, kelas) values ('$nama', $nis, '$kelas')");
+				
+				$_SESSION['pesan'] = '<a class="berhasil">Data berhasil ditambahkan</a>';
+				header("Location: ../index.php");
+			}else{
+				$_SESSION['pesan'] = '<a class="gagal">GAGAL - Data NIS murid sudah terdaftar</a>';
+				header("location: ../index.php");
+			}
+		}else{
+			$_SESSION['pesan'] = '<a class="gagal">GAGAL - Nama murid sudah terdaftar</a>';
+			header('location: ../index.php');
+		}
+
 	
 	}
 

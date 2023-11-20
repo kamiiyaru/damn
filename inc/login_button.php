@@ -1,5 +1,5 @@
 <style>
-	a {
+	.login {
 		margin-left: 10px;
 		float: right;
 		font-size: 25px;
@@ -9,10 +9,10 @@
 
 <?php 
 	if (!isset($_SESSION['login'])) {
-		echo "<a href='login.php'>login</a>";
+		echo "<a href='login.php' class='login'>login</a>";
 	}else{
-		echo "<a>".$_SESSION['login']."</a>";
-		echo "<a href='logout.php'>logout</a>";
+		echo "<a class='login'>".$_SESSION['login']."</a>";
+		echo "<a href='logout.php' class='login'>logout</a>";
 }
 
  ?>
