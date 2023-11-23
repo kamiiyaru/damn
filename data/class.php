@@ -29,18 +29,21 @@ class Data {
 		}else{
 			if($username == $login_array['username']){
 				if ($password == $pass_array['password']) {
+
+					$_SESSION['pesan'] = '<a class="berhasil">Login Berhasil</a>';
 					$_SESSION['login'] = "$username";
 					echo "Login Success";
-					echo "<a href='../index.php'>back</a>";
+					header('Location: ../index.php');
 				}else{
-					echo "Login Invalid - Password<br>";
-					echo "<a href='../login.php'>back</a>";
+					$_SESSION['pesan'] = '<a class="gagal">Gagal Username / Password salah</a>';
+					header('Location: ../login.php');
 				}
 			}else{
-				echo "Login Invalid - username<br>";
-				echo "<a href='../login.php'>back</a>";
+				$_SESSION['pesan'] = '<a class="gagal">Gagal Username / Password salah</a>';
+				header('Location: ../login.php');
 			}
 		}
+	
 	}
 
 	public function register() {
@@ -51,10 +54,21 @@ class Data {
 		//pass
 		$password = $_POST['password'];
 
+		//admin
+		$admin = $_POST['admin'];
+
 		if($check_usn->num_rows == 0){
-			mysqli_query($this->conn, "INSERT INTO USER (username, password, admin) values ('$username','$password', 0)");
-			$_SESSION['pesan'] = "Username berhasil terdaftar";
-			header("Location: ../index.php");
+			if(!isset($admin)){
+				$admin = 0;
+				
+				mysqli_query($this->conn, "INSERT INTO USER (username, password, admin) values ('$username','$password', $admin)");
+				$_SESSION['pesan'] = "Username berhasil terdaftar";
+				header("Location: ../index.php");
+			}else{
+				mysqli_query($this->conn, "INSERT INTO USER (username, password, admin) values ('$username','$password', $admin)");
+				$_SESSION['pesan'] = "Username berhasil terdaftar";
+				header("Location: ../index.php");
+			}
 		}else{
 			$_SESSION['pesan'] = "Username telah Terdaftar";
 			header("Location: ../register.php");
@@ -66,7 +80,7 @@ class Data {
 		$table = mysqli_query($this->conn, "select * from student");
 		$no = 1;
 		
-		echo "<th>aksi</th>";
+		echo "<th colspan='2'>aksi</th>";
 		echo "</tr>";
 
 		while($row = $table->fetch_array()){
@@ -75,7 +89,8 @@ class Data {
 			echo "<td>".$row['nama']."</td>";
 			echo "<td>".$row['nis']."</td>";
 			echo "<td>".$row['kelas']."</td>";
-			echo "<td><a href='./process/delete.php?id=".$row['id']."' >Hapus</a><a href='./process/edit.php?id=".$row['id'].">Edit</a></td>";
+			echo "<td class='hapus'><a href='./process/delete.php?id=".$row['id']."'>Hapus</a></td>";
+			echo "<td class='edit'><a href='./process/edit.php?id=".$row['id']."'>Edit</a></td>";
 			echo "<tr>";
 		}
 	}
@@ -149,6 +164,59 @@ class Data {
 	
 	}
 
+	public function tambah_data_button() {
+		$username = $_SESSION['login'];
+		$admin = mysqli_query($this->conn, "select admin from user where username = '$username'");
+		$adm = $admin->fetch_assoc();
+
+		if($adm['admin'] == 1){
+			echo '<a href="tambah_data.php" class="addButon"><button>tambah data</button></a>';
+		}
+	}
+
+	public function edit() {
+		$id = $_GET['id'];
+		$nama = $_POST['nama'];
+		$nis = $_POST['nis'];
+		$kelas = $_POST['kelas'];
+	
+		$qualify = mysqli_query($this->conn, "select * from student where id = $id");
+		$qualifying = $qualify->fetch_assoc();
+
+		if($nama == $qualifying['nama']){
+
+			if($id == $qualifying['id']){
+			
+				if($nis == $qualifying['nis']){
+
+					if($id == $qualifying['id']){
+						mysqli_query($this->conn, "update student set nama = '$nama', nis = $nis, kelas = '$kelas' where id = $id");
+						
+						header('Location: ../index.php');
+					}else{
+						$_SESSION['pesan'] = '<a class="gagal">GAGAL - Nama sudah terdaftar</a>';
+						header('Location: ../index.php');
+					}
+				}else{
+					mysqli_query($this->conn, "update student set nama = '$nama', nis = $nis, kelas = '$kelas' where id = $id");
+						
+						header('Location: ../index.php');
+				}
+
+			}else{
+
+				$_SESSION['pesan'] = '<a class="gagal">GAGAL - Nama sudah terdaftar</a>';
+				header('Location: ../index.php');
+			}
+		}else{
+
+			if($nis != $qualifying['nis']){
+				mysqli_query($this->conn, "update student set nama = '$nama', nis = $nis, kelas = '$kelas' where id = $id");
+						
+				header('Location: ../index.php');
+			}
+		}
+	}
 }
 
  ?>

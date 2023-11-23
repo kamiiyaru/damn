@@ -1,5 +1,8 @@
 <?php $title = 'login'; ?>
-<?php include './inc/head.php'; ?>
+<?php include './inc/head.php'; 
+    require './data/class.php';
+    $data = new Data();
+?>
 
 <style type="text/css">
         img {
@@ -9,7 +12,7 @@
         h1 {
 			width: 500px;;
             position: absolute;
-            top: -50%;
+            top: -59%;
             right:-90%;
         }
         form {
@@ -36,10 +39,16 @@
             left: 9px;
         }        
     </style>
+<?php
+if(isset($_SESSION['pesan'])){
+    echo $_SESSION['pesan'];
+    unset($_SESSION['pesan']);
+}
+?>
+
 <form method="POST" action="process/login_process.php">
 <h1>man enter your login info broda</h1>
 	<input type="name" name="username" placeholder="Username" required><br>
 	<input type="password" name="password" placeholder="Password" required><br>
 	<input type="submit" name="submit" class='submit'><br>
-	<a href="register.php">register</a>
 </form>

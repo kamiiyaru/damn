@@ -1,5 +1,6 @@
 <?php session_start() ?>
-<?php session_destroy() ?>
+<?php unset($_SESSION['login']) ?>
 <?php 
+$_SESSION['pesan'] = '<a class="berhasil">Logout berhasil</a><br>';
 header('location: index.php')
  ?>

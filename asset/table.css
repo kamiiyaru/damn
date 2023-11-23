@@ -20,4 +20,10 @@ th {
 
 .addButton {
     float: left;
+    border: none;
+}
+
+.register {
+    position: relative;
+    left: 100%;
 }
